@@ -91,6 +91,7 @@ const SignUp = () => {
             if (data.success) {
                 toast.success('Signup successful!');
                 localStorage.setItem('authToken', data.token); // Save token
+                setToken(data.token); // Set token in context
                 navigate('/'); // Redirect to home
             } else {
                 toast.error(data.message || 'Signup failed. Please try again.');
