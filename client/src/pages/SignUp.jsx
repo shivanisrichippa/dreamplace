@@ -31,30 +31,32 @@ const SignUp = () => {
             reader.readAsDataURL(file);
         }
     };
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = new FormData();
-        Object.keys(formData).forEach((key) => form.append(key, formData[key]));
-        if (image) form.append('image', image);
+    const form = new FormData();
+    Object.keys(formData).forEach((key) => form.append(key, formData[key]));
+    if (image) form.append('image', image);
 
-        try {
-            const { data } = await axios.post(`${backendUrl}/api/user/sign-up`, form, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
+    try {
+        const { data } = await axios.post(`${backendUrl}/api/user/sign-up`, form, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
-            if (data.success) {
-                localStorage.setItem('authToken', data.token); // Store the token
-                setToken(data.token); // Update state
-                toast.success('Signup successful!');
-                navigate('/'); // Redirect to home page
-            } else {
-                toast.error(data.message || 'Signup failed. Please try again.');
-            }
-        } catch (error) {
-            toast.error('Signup failed. Please try again.');
+        if (data.success) {
+            toast.success('Signup successful!');
+            localStorage.setItem('authToken', data.token);
+            navigate('/');
+        } else {
+            toast.error(data.message || 'Signup failed. Please try again.');
         }
-    };
+    } catch (error) {
+        console.error('Signup Error:', error.response || error);
+        toast.error(error.response?.data?.message || 'Signup failed. Please try again.');
+    }
+};
 
     useEffect(() => {
         if (token) {
