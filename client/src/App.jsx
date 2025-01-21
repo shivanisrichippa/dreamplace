@@ -12,7 +12,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ForgotPassword from './pages/ForgotPassword'
+
 import OurPolicy from './components/OurPolicy'
 import SellProperty from './pages/SellProperty'
 import { ToastContainer } from 'react-toastify'
@@ -43,7 +43,7 @@ const App = () => {
         <Route path='/place-order' element={<PlaceOrder/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/policy' element={<OurPolicy/>}/>
-        <Route path='/forgot-password' element={<ForgotPassword/>}/>
+      
         <Route path='/sell-property' element={<SellProperty/>}/>
         <Route path='/logout' element={<LogOut/>}/>
         <Route path='/account' element={<Account/>}/>
