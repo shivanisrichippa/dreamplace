@@ -18,7 +18,15 @@ const Login = () => {
     if (token) {
       navigate('/');
     }
-  }, [token, navigate]);
+
+    const handleUnload = () => {
+      localStorage.removeItem('authToken');
+      setToken(null);
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, [token, navigate, setToken]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
